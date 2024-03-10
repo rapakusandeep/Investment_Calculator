@@ -1,75 +1,59 @@
+import { useState } from "react";
 
 
-
-const data = {
-    initialInvestment: undefined,
-    annualInvestment: undefined,
-    expectedReturn: undefined,
-    duration: undefined
-  };
-
-
-export default function UserInput({inputLabelLeft, inputLabelRight, inputLabelLeftDown, inputLabelRightDown, onAnnualDataChange }) {
-
-
-let currData = Object.assign({}, data);
-
-
-    function handleInitialInvestment(val) {
-        currData.initialInvestment = val.target.value;
-        setCurrDataToAnnualData();
-    };
-
-    function handleAnnualInvestment(val) {
-        currData.annualInvestment = (val.target.value);
-        setCurrDataToAnnualData();
-    };
-
-
-    function handleExpectedReturn(val) {
-        currData.expectedReturn = val.target.value;
-        setCurrDataToAnnualData();
-    };
-
-
-    function handleDuration(val) {
-        currData.duration = val.target.value;
-        setCurrDataToAnnualData();
-        console.log(currData);
-    };
-
-    function setCurrDataToAnnualData() {
-        if (currData.initialInvestment && currData.annualInvestment && currData.expectedReturn && currData.duration) {            
-            onAnnualDataChange(currData);
-            console.log(currData);
-        }
-    }
+export default function UserInput({onChangeInput, userInput}) {
 
     return (
-        
-            <table className="user-input">
-                <tr className="input-group">
-                    <td>
-                        <label>{inputLabelLeft}</label>
-                        <input type="text" required onChange={handleInitialInvestment}/>
-                    </td>
-                    <td>
-                        <label>{inputLabelRight}</label>
-                        <input type="text" onChange={handleAnnualInvestment} />
-                    </td>
-                </tr>
-                <br/>
-                <tr className="input-group">
-                    <td>
-                        <label>{inputLabelLeftDown}</label>
-                        <input type="text" required onChange={handleExpectedReturn} />
-                    </td>
-                    <td>
-                        <label>{inputLabelRightDown}</label>
-                        <input type="text" onChange={handleDuration} />
-                    </td>
-                </tr>
-            </table>
-        
+        <section id="user-input">
+            <div className="input-group">
+                <p>
+                    <label>Initial Investment</label>
+                    <input
+                        type="number"
+                        required
+                        value={userInput.initialInvestment}
+                        onChange={(event) =>
+                            onChangeInput('initialInvestment', event.target.value)
+                        }
+                    />
+                </p>
+                <p>
+                    <label>Annual Investment</label>
+                    <input
+                        type="number"
+                        required
+                        value={userInput.annualInvestment}
+                        onChange={(event) =>
+                            onChangeInput('annualInvestment', event.target.value)
+                        }
+                    />
+                </p>
+            </div>
+            <div className="input-group">
+                <p>
+                    <label>Expected Return</label>
+                    <input
+                        type="number"
+                        required
+                        value={userInput.expectedReturn}
+                        onChange={(event) =>
+                            onChangeInput('expectedReturn', event.target.value)
+                        }
+                    />
+                </p>
+                <p>
+                    <label>Duration</label>
+                    <input
+                        type="number"
+                        required
+                        value={userInput.duration}
+                        onChange={(event) =>
+                            onChangeInput('duration', event.target.value)
+                        }
+                    />
+                </p>
+            </div>
+        </section>
     );
+
 }
